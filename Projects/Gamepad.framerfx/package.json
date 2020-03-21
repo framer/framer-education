@@ -13,6 +13,7 @@
 	},
 	"author": "Steve Ruiz",
 	"dependencies": {
-		"@framer/steveruizok.education": "^1.193.0"
+		"@framer/steveruizok.education": "^1.207.0",
+		"fit-curve": "^0.1.6"
 	}
 }

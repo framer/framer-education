@@ -14,6 +14,7 @@ import {
 export class MotionGamepad {
     index = 0
     id: string
+    timestamp: string
     gamepad: Gamepad
     layout = "dualshock"
     deadZone = 0.1
@@ -48,6 +49,7 @@ export class MotionGamepad {
         this.index = index
 
         this.id = id
+        this.timestamp = Date.now().toString()
         this.deadZone = deadZone
         this.axisThreshold = axisThreshold
         this.stickSpeed = stickSpeed
@@ -89,16 +91,7 @@ export class MotionGamepad {
         // Kind of a sloppy solution, but store a reference to
         // the gamepad under this id; if it's already there,
         // we've hot reloaded so give the old one a moment to break
-        if (window["gamepads"] && window["gamepads"][this.id]) {
-            window["gamepads"][this.id] = false
-            setTimeout(() => {
-                window["gamepads"][this.id] = true
-            }, 500)
-        } else {
-            window["gamepads"] = {}
-            window["gamepads"][this.id] = true
-        }
-
+        localStorage.setItem("gamepad_timestamp", this.timestamp)
         this.updateGamepad()
     }
 
@@ -123,7 +116,7 @@ export class MotionGamepad {
 
         // If we've stopped looping (because a gamepad was
         // disconnected), we break the loop.
-        if (!(window["gamepads"] && !window["gamepads"][this.id])) {
+        if (localStorage.getItem("gamepad_timestamp") !== this.timestamp) {
             this.onDisconnect && this.onDisconnect(gamepad)
             return
         }

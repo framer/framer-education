@@ -4,23 +4,24 @@ import { Interactive } from "./Interactive"
 import { Icon } from "./Icon"
 import { colors } from "./canvas"
 
-type Props = Partial<FrameProps> & {
-    value: string
-    disabled: boolean
-    required: boolean
-    onValueChange: (value: string, valid: boolean) => any
-    validation: (value: string) => boolean
-} & {
-    placeholder: string
-    readOnly: boolean
-    password: boolean
-    message: string | ((value: string, valid: boolean) => string)
-    delay: number // in seconds
-    clearable: boolean
-    onBlur: (value: string, valid: boolean) => void
-    onFocus: (value: string, valid: boolean) => void
-    onInputStart: () => any
-}
+type Props = React.HTMLProps<HTMLInputElement> &
+    Partial<FrameProps> & {
+        value: string
+        disabled: boolean
+        required: boolean
+        onValueChange: (value: string, valid: boolean) => any
+        validation: (value: string) => boolean
+    } & {
+        placeholder: string
+        readOnly: boolean
+        password: boolean
+        message: string | ((value: string, valid: boolean) => string)
+        delay: number // in seconds
+        clearable: boolean
+        onBlur: (value: string, valid: boolean) => void
+        onFocus: (value: string, valid: boolean) => void
+        onInputStart: () => any
+    }
 
 export function TextInput(props: Partial<Props>) {
     const {

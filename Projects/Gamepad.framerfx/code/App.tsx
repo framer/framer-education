@@ -1,110 +1,159 @@
-import * as React from 'react'
+import * as React from "react"
 import {
-	Override,
-	motionValue,
-	useMotionValue,
-	useTransform,
-	Data,
-	Frame,
-} from 'framer'
-import { MotionGamepad } from './MotionGamepad'
+    Override,
+    motionValue,
+    useMotionValue,
+    useTransform,
+    Data,
+    Frame,
+} from "framer"
+import { MotionGamepad } from "./MotionGamepad"
 
 // [1]
 const appState = Data({
-	dots: [] as { x: number; y: number; color: string }[],
+    dots: [] as { x: number; y: number; color: string }[],
 })
 
 // [2]
 const gamepad = new MotionGamepad(0, {
-	sticks: {
-		left: {
-			// [6]
-			speed: 10,
-			bounds: {
-				top: -260,
-				left: -140,
-				right: 140,
-				bottom: 260,
-			},
-		},
-		right: {
-			speed: 10,
-			bounds: {
-				top: -260,
-				left: -140,
-				right: 140,
-				bottom: 260,
-			},
-		},
-	},
-	onButtonDown: (button) => {
-		const { sticks } = gamepad
-		if (button === 'x') {
-			// gamepad.sticks returns the current values
-			const { x, y } = sticks.left.point
-			appState.dots = [...appState.dots, { x, y, color: '#00bbff' }]
-		} else if (button === 'circle') {
-			const { x, y } = sticks.right.point
-			appState.dots = [...appState.dots, { x, y, color: '#ba66cd' }]
-		}
-	},
+    sticks: {
+        left: {
+            // [6]
+            speed: 10,
+            bounds: {
+                top: -260,
+                left: -140,
+                right: 140,
+                bottom: 260,
+            },
+        },
+        right: {
+            speed: 10,
+            bounds: {
+                top: -260,
+                left: -140,
+                right: 140,
+                bottom: 260,
+            },
+        },
+    },
+    onButtonDown: button => {
+        const { sticks } = gamepad
+        if (button === "x") {
+            // gamepad.sticks returns the current values
+            const { x, y } = sticks.left.point
+            appState.dots = [...appState.dots, { x, y, color: "#00bbff" }]
+        } else if (button === "circle") {
+            const { x, y } = sticks.right.point
+            appState.dots = [...appState.dots, { x, y, color: "#ba66cd" }]
+        }
+    },
+    onConnect: () => console.log("Connected"),
 })
 
 const { inputs } = gamepad
 
 // [8]
 export function LeftStickCursor(): Override {
-	return {
-		...inputs.sticks.left.point,
-	}
+    return {
+        ...inputs.sticks.left.point,
+    }
 }
 
 export function RightStickCursor(): Override {
-	return {
-		...inputs.sticks.right.point,
-	}
+    return {
+        ...inputs.sticks.right.point,
+    }
 }
 
 // [9]
 export function LeftStick(): Override {
-	const x = useTransform(inputs.sticks.left.x, (v) => v * 10)
-	const y = useTransform(inputs.sticks.left.y, (v) => v * 10)
-	const scale = useTransform(inputs.buttons.leftStick, (v) => (v ? 0.9 : 1))
+    const x = useTransform(inputs.sticks.left.x, v => v * 10)
+    const y = useTransform(inputs.sticks.left.y, v => v * 10)
+    const scale = useTransform(inputs.buttons.leftStick, v => (v ? 0.9 : 1))
 
-	return {
-		x,
-		y,
-		scale,
-	}
+    return {
+        x,
+        y,
+        scale,
+    }
 }
 
 export function RightStick(): Override {
-	const x = useTransform(inputs.sticks.right.x, (v) => v * 10)
-	const y = useTransform(inputs.sticks.right.y, (v) => v * 10)
-	const scale = useTransform(inputs.buttons.rightStick, (v) => (v ? 0.9 : 1))
+    const x = useTransform(inputs.sticks.right.x, v => v * 10)
+    const y = useTransform(inputs.sticks.right.y, v => v * 10)
+    const scale = useTransform(inputs.buttons.rightStick, v => (v ? 0.9 : 1))
 
-	return {
-		x,
-		y,
-		scale,
-	}
+    return {
+        x,
+        y,
+        scale,
+    }
 }
 
 // [10]
 export function DotsContainer(): Override {
-	return {
-		children: appState.dots.map((dot, index) => (
-			<Frame
-				key={index}
-				size={16}
-				center
-				x={dot.x}
-				y={dot.y - 4}
-				background={dot.color}
-				borderRadius="100%"
-			/>
-		)),
-	}
+    return {
+        children: appState.dots.map((dot, index) => (
+            <Frame
+                key={index}
+                size={16}
+                center
+                x={dot.x}
+                y={dot.y - 4}
+                background={dot.color}
+                borderRadius="100%"
+            />
+        )),
+    }
+}
+
+// [10]
+export function Canvas(): Override {
+    const rCanvas = React.useRef<HTMLCanvasElement>()
+
+    const x = useTransform(inputs.sticks.left.x, v => v * 10)
+    const y = useTransform(inputs.sticks.left.y, v => v * 10)
+    const scale = useTransform(inputs.buttons.leftStick, v => (v ? 0.9 : 1))
+
+    let rLine = React.useRef<Path2D>(null)
+    let rLines = React.useRef<Path2D[]>([])
+
+    return {
+        canvas: rCanvas,
+        onStart: (ctx, width, height) => {
+            ctx.strokeStyle = "#000"
+            ctx.strokeWidth = 2
+        },
+        onFrame: (ctx, width, height) => {
+            const line = rLine.current
+            const { x, y } = gamepad.sticks.left.point
+
+            ctx.clearRect(0, 0, width, height)
+            console.log(gamepad.buttons.x)
+
+            if (gamepad.buttons.x) {
+                if (!rLine.current) {
+                    rLine.current = new Path2D()
+                    rLines.current.push(rLine.current)
+                }
+                rLine.current.lineTo(x + width / 2, y + height / 2)
+            } else {
+                if (rLine.current) {
+                    rLine.current = null
+                }
+            }
+
+            if (gamepad.buttons.triangle) {
+                rLines.current = []
+                rLine.current = null
+            }
+
+            for (let line of rLines.current) {
+                ctx.stroke(line)
+            }
+        },
+    }
 }
 
 /*

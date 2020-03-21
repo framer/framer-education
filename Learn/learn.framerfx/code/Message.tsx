@@ -52,7 +52,7 @@ export function Message(props: Props) {
             {...rest}
             height={mvHeight}
             direction="horizontal"
-            distribution={"start"}
+            distribution="start"
             alignment="start"
             gap={16}
         >

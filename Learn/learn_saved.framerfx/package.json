@@ -1,0 +1,28 @@
+{
+	"main": "dist/index.js",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/react": "^16.8",
+		"@types/react-dom": "^16.8"
+	},
+	"peerDependencies": {
+		"framer": "^1.0 || ^0.10",
+		"react": "^16.8",
+		"react-dom": "^16.8"
+	},
+	"framer": {
+		"id": "7668635d-a905-469e-ace4-623b6d8ffb30",
+		"displayName": "Learn Design System"
+	},
+	"author": "Steve Ruiz",
+	"dependencies": {
+		"@mapbox/geo-viewport": "^0.4.0",
+		"copy-to-clipboard": "^3.2.0",
+		"geojson-extent": "^0.3.2",
+		"mapbox-gl": "^1.0.0",
+		"markdown-to-jsx": "^6.10.2",
+		"react-select": "^3.0.3"
+	},
+	"name": "@framer/steveruizok.learn-design-system",
+	"version": "1.2.0"
+}

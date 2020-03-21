@@ -11,7 +11,7 @@ import {
 } from "framer"
 import * as mapboxgl from "mapbox-gl"
 import * as geoViewport from "@mapbox/geo-viewport"
-import * as geojsonExtent from "geojson-extent"
+import * as geojsonExtent from "@mapbox/geojson-extent"
 import "mapbox-gl/dist/mapbox-gl.css"
 import * as copy from "copy-to-clipboard"
 

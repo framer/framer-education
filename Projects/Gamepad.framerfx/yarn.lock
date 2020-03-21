@@ -102,10 +102,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.3.tgz#dfa0c92efe44a1d1a7974fb49ffeb40ef2da5a27"
   integrity sha512-zVgvPwGK7c1aVdUVc9Qv7SqepOGRDrqCw7KZPSZziWGxSlbII3gmvGLPzLX4d0n0BMbamBacUrN22zOMyFFEkQ==
 
-"@framer/steveruizok.education@^1.193.0":
-  version "1.193.0"
-  resolved "https://registry.framer.com/@framer/steveruizok.education/-/@framer/steveruizok.education-1.193.0.tgz#0166ceda262be4afa3a39bac8c6f1e4285331f9d"
-  integrity sha512-Xhlk+m7HU42LftA/t6BHHo02ai8FxKL0kCzQSFipI2aFMAIAjdgrqJYea01yWmNhl47MAINoeVejXDC1I3KHdw==
+"@framer/steveruizok.education@^1.207.0":
+  version "1.207.0"
+  resolved "https://registry.framer.com/@framer/steveruizok.education/-/@framer/steveruizok.education-1.207.0.tgz#f7cba5d963343f121296f9eeea46f2416a1eb2ab"
+  integrity sha512-yQEf+Z3eZU62weyu6R1gJnNj8zN/tVXhgR4I+Zq/h8sGOPGGqhyigO70I/+lO2/YaqG+JWciQbdpnByB1H0nXQ==
   dependencies:
     "@mapbox/geo-viewport" "^0.4.0"
     copy-to-clipboard "^3.2.0"
@@ -404,6 +404,11 @@ find-root@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/find-root/-/find-root-1.1.0.tgz#abcfc8ba76f708c42a97b3d685b7e9450bfb9ce4"
   integrity sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng==
+
+fit-curve@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/fit-curve/-/fit-curve-0.1.6.tgz#c3bdbe6f5a2a3be8f801eaebda4069191256a95b"
+  integrity sha1-w72+b1oqO+j4Aerr2kBpGRJWqVs=
 
 geojson-coords@0.0.0:
   version "0.0.0"
